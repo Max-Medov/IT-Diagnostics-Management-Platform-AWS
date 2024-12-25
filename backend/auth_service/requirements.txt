@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+Flask-JWT-Extended
+Flask-Migrate
+psycopg2-binary
+tenacity
+prometheus-flask-exporter

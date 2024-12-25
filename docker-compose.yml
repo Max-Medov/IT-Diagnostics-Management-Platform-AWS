@@ -1,0 +1,62 @@
+version: '3'
+services:
+  auth_service:
+    build:
+      context: ./backend
+      dockerfile: auth_service/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URI=postgresql://postgres:${POSTGRES_PASSWORD}@db:5432/itdiagnostics
+      - SECRET_KEY=${SECRET_KEY}
+    depends_on:
+      - db
+
+  case_service:
+    build:
+      context: ./backend
+      dockerfile: case_service/Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - DATABASE_URI=postgresql://postgres:${POSTGRES_PASSWORD}@db:5432/itdiagnostics
+      - SECRET_KEY=${SECRET_KEY}
+    depends_on:
+      - db
+
+  diagnostic_service:
+    build:
+      context: ./backend
+      dockerfile: diagnostic_service/Dockerfile
+    ports:
+      - "5002:5002"
+    environment:
+      - DATABASE_URI=postgresql://postgres:${POSTGRES_PASSWORD}@db:5432/itdiagnostics
+      - SECRET_KEY=${SECRET_KEY}
+    volumes:
+      - ./backend/diagnostic_service/uploads:/app/uploads
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=itdiagnostics
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+
