@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 app.config['JWT_SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your_secret_key')
 # Allow CORS from specific origin
-CORS(app, resources={r"/*": {"origins": ["http://frontend.local"], "supports_credentials": True}})
+CORS(app, resources={r"/*": {"origins": "*", "supports_credentials": True}})
 
 db.init_app(app)
 jwt = JWTManager(app)
