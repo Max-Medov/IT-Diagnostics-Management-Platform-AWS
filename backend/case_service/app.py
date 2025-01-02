@@ -30,6 +30,11 @@ def initialize_database():
 
 initialize_database()
 
+# Health Check
+@app.route('/', methods=['GET'])
+def root_index():
+    return "OK", 200
+
 @app.route('/cases', methods=['GET', 'POST'])
 @jwt_required()
 def cases():

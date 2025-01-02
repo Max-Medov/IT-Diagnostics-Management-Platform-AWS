@@ -240,6 +240,11 @@ def upload_results(case_id):
     except Exception as e:
         app.logger.error(f"Exception in /upload/{case_id}: {e}")
         return jsonify({'message': 'Internal server error'}), 500
+        
+# Health Check
+@app.route('/', methods=['GET'])
+def root_index():
+    return "OK", 200        
 
 @app.route('/download_script/<int:case_id>', methods=['GET'])
 @jwt_required()
