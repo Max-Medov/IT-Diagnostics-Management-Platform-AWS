@@ -1,7 +1,7 @@
 import axios from 'axios'; // Import axios
 
 const diagnosticService = axios.create({
-  baseURL: process.env.REACT_APP_DIAGNOSTIC_SERVICE_URL || 'http://diagnostic.local',
+  baseURL: process.env.REACT_APP_DIAGNOSTIC_SERVICE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
