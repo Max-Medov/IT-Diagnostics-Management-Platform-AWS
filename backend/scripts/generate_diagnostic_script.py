@@ -1,6 +1,6 @@
 def generate_diagnostic_script(case_id, token, platform="linux", server_url=None):
     # conditions based on platform argument.
-
+    
     SERVER_URL = server_url or "http://diagnostic.local"
 
     script_content = f'''#!/bin/bash

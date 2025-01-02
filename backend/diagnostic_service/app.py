@@ -260,7 +260,7 @@ def download_script(case_id):
         token = request.headers.get('Authorization').split()[1]
         diagnostic_server_url = os.environ.get("DIAGNOSTIC_SERVER_URL", "http://diagnostic.local/diagnostic")
         # Generate the script content from an external file/function
-        script_content = generate_diagnostic_script(case_id=case_id, token=token, platform="linux")
+        script_content = generate_diagnostic_script(case_id=case_id, token=token, platform="linux", server_url=diagnostic_server_url)
 
         response = make_response(script_content)
         response.headers['Content-Type'] = 'text/x-sh'
