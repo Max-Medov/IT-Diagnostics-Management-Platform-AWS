@@ -1,7 +1,7 @@
-def generate_diagnostic_script(case_id, token, platform="linux"):
+def generate_diagnostic_script(case_id, token, platform="linux", server_url=None):
     # conditions based on platform argument.
 
-    SERVER_URL = "http://diagnostic.local"
+    SERVER_URL = server_url or "http://diagnostic.local"
 
     script_content = f'''#!/bin/bash
 
@@ -80,7 +80,7 @@ sed -i '$ s/,$//' "$RESULTS_FILE"
 echo "}}" >> "$RESULTS_FILE"
 
 echo "Uploading results..."
-curl -f -X POST -H "Authorization: Bearer $TOKEN" -F "file=@$RESULTS_FILE" "$SERVER_URL/upload/$CASE_ID"
+curl -f -X POST -H "Authorization: Bearer $TOKEN" -F "file=@$RESULTS_FILE" "{SERVER_URL}/upload/$CASE_ID"
 
 echo "Diagnostic data uploaded successfully."
 

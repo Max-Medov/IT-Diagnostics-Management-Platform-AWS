@@ -44,7 +44,7 @@ initialize_database()
 def root_index():
     return "OK", 200
 
-@app.route('/register', methods=['POST'])
+@app.route('/auth/register', methods=['POST'])
 def register_user():
     try:
         data = request.get_json()
@@ -69,7 +69,7 @@ def register_user():
         app.logger.error(f"Exception in /register: {e}")
         return jsonify({'message': 'Internal server error'}), 500
 
-@app.route('/login', methods=['POST'])
+@app.route('/auth/login', methods=['POST'])
 def login_user():
     try:
         data = request.get_json()
@@ -95,7 +95,7 @@ def login_user():
         app.logger.error(f"Exception in /login: {e}")
         return jsonify({'message': 'Internal server error'}), 500
 
-@app.route('/change_password', methods=['POST'])
+@app.route('/auth/change_password', methods=['POST'])
 @jwt_required()
 def change_password():
     try:
@@ -114,7 +114,7 @@ def change_password():
         app.logger.error(f"Exception in /change_password: {e}")
         return jsonify({'message': 'Internal server error'}), 500
 
-@app.route('/change_username', methods=['POST'])
+@app.route('/auth/change_username', methods=['POST'])
 @jwt_required()
 def change_username():
     try:
@@ -141,7 +141,7 @@ def change_username():
         app.logger.error(f"Exception in /change_username: {e}")
         return jsonify({'message': 'Internal server error'}), 500
 
-@app.route('/admin/create_admin_user', methods=['POST'])
+@app.route('/auth/admin/create_admin_user', methods=['POST'])
 @jwt_required()
 def create_admin_user():
     try:

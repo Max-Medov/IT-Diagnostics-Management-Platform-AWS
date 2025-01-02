@@ -205,7 +205,7 @@ def analyze_results(file_path):
         logging.error(f"Error analyzing results: {e}")
         raise
 
-@app.route('/upload/<int:case_id>', methods=['POST'])
+@app.route('/diagnostic/upload/<int:case_id>', methods=['POST'])
 @jwt_required()
 def upload_results(case_id):
     try:
@@ -246,7 +246,7 @@ def upload_results(case_id):
 def root_index():
     return "OK", 200        
 
-@app.route('/download_script/<int:case_id>', methods=['GET'])
+@app.route('/diagnostic/download_script/<int:case_id>', methods=['GET'])
 @jwt_required()
 def download_script(case_id):
     app.logger.info(f"Downloading script for case_id: {case_id}")
@@ -258,7 +258,7 @@ def download_script(case_id):
             return jsonify({'message': 'Access denied.'}), 403
 
         token = request.headers.get('Authorization').split()[1]
-
+        diagnostic_server_url = os.environ.get("DIAGNOSTIC_SERVER_URL", "http://diagnostic.local/diagnostic")
         # Generate the script content from an external file/function
         script_content = generate_diagnostic_script(case_id=case_id, token=token, platform="linux")
 

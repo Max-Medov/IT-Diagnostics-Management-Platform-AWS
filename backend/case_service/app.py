@@ -35,7 +35,7 @@ initialize_database()
 def root_index():
     return "OK", 200
 
-@app.route('/cases', methods=['GET', 'POST'])
+@app.route('/case/cases', methods=['GET', 'POST'])
 @jwt_required()
 def cases():
     if request.method == 'POST':
@@ -72,7 +72,7 @@ def cases():
             app.logger.error(f"Exception in /cases GET: {e}")
             return jsonify({'message': 'Internal server error'}), 500
 
-@app.route('/cases/<int:case_id>', methods=['GET'])
+@app.route('/case/cases/<int:case_id>', methods=['GET'])
 @jwt_required()
 def get_case(case_id):
     try:
@@ -96,7 +96,7 @@ def get_case(case_id):
         app.logger.error(f"Exception in /cases/{case_id}: {e}")
         return jsonify({'message': 'Internal server error'}), 500
 
-@app.route('/admin/cases', methods=['GET'])
+@app.route('/case/admin/cases', methods=['GET'])
 @jwt_required()
 def admin_all_cases():
     try:
@@ -120,7 +120,7 @@ def admin_all_cases():
         app.logger.error(f"Exception in /admin/cases GET: {e}")
         return jsonify({'message': 'Internal server error'}), 500
 
-@app.route('/cases/<int:case_id>/comments', methods=['GET', 'POST'])
+@app.route('/case/cases/<int:case_id>/comments', methods=['GET', 'POST'])
 @jwt_required()
 def case_comments(case_id):
     try:
